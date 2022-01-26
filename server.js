@@ -1,12 +1,10 @@
 const express=require('express')
 const morgan=require('morgan')
-const dotenv=require('dotenv')
+const dotenv=require('dotenv') 
 const path=require('path')
 const bodyparser=require('body-parser')
 const dbconnection=require('./config/db')
 const routers=require('./routes/routes')
-const memberRouter=require('./routes/memberRouter')
-const accountRouter=require('./routes/AccountRouter')
 const { engine }=require('express-handlebars')
 const cors=require('cors')
 const app=express()
@@ -38,8 +36,6 @@ app.use(bodyparser.json())
 // routes
 
 app.use('/' , routers)
-app.use('/member',memberRouter)
-app.use('/account',accountRouter)
 
 
 

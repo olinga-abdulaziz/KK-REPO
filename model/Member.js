@@ -1,20 +1,12 @@
 const mongoose=require('mongoose')
 
 const MemberSchema=new mongoose.Schema({
-    name:{
+    
+    username:{
         type:String,
         required:true,
-        uppercase:true
     },
-    address:{
-        type:String,
-        required:true
-    },
-    gender:{
-        type:String,
-        required:true
-    },
-    code:{
+    password:{
         type:String,
         required:true
     },

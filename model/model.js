@@ -2,15 +2,19 @@ const mongoose=require('mongoose')
 
 
 const MyModel=mongoose.Schema({
-    name:{
-        type:String
-    },
     category:{
         type:String
     },
-    status:{
+    image:{
         type:String
-    }
+    },
+    description:{
+        type:String
+    },
+     createdAt:{
+        type:Date,
+        default:Date.now
+    },
 })
 
-module.exports=mongoose.model('mymodel',MyModel)
+module.exports=mongoose.model('Post',MyModel)
