@@ -1,34 +1,65 @@
 const express=require('express')
-const model=require('../model/model')
+const Post=require('../model/model')
+const Member=require('../model/Member')
 const router=express.Router()
 
 router.get('/',(req,res)=>{
     res.render('main')
 })
 
-router.get('/api', async (req,res)=>{
+router.get('/user', async (req,res)=>{
     
     try {
-        const mydata=await model.find()
-        res.send(mydata)
+        const users=await Member.find()
+        res.send(users)
     } catch (err) {
         console.log(err)
     }
 })
 
-router.post('/api/add', async (req,res)=>{
-    const mymodeldata=new model({
-        name:req.body.name,
-        category:req.body.category,
-        status:req.body.status,
-    })
-
-    const savedata=await mymodeldata.save().then(res.send("inserted successfully !!!"))
+router.get('/post', async (req,res)=>{
+    
+    try {
+        const users=await Post.find()
+        res.send(users)
+    } catch (err) {
+        console.log(err)
+    }
 })
 
-router.patch('/api/update/:id',async (req,res)=>{
+router.post('/user', async (req,res)=>{
+    const newmember=new Member({
+        username:req.body.username,
+        password:req.body.password,
+    })
+
     try {
-        const updatedata=await model.updateOne({__id:req.params.id})
+         const savepost=await newmember.save().then(res.send("Account registerd successfully"))
+    } catch (err) {
+        console.log(err)
+    }
+
+})
+
+router.post('/post', async (req,res)=>{
+    const newpost=new Post({
+        category:req.body.category,
+        image:req.body.image,
+        description:req.body.description
+    })
+
+    try {
+        const savepost=await newpost.save().then(res.send("Posted  successfully"))
+        console.log(newpost)
+    } catch (err) {
+        console.log(err)
+    }
+
+})
+
+router.patch('/post/:id',async (req,res)=>{
+    try {
+        const updatedata=await Post.updateOne({__id:req.params.id})
     } catch (err) {
         res.send(err)
         console.log(err)
@@ -38,19 +69,19 @@ router.patch('/api/update/:id',async (req,res)=>{
 
 
 
-router.get('/api/:id',async (req,res)=>{
+router.get('/post/:id',async (req,res)=>{
 
     try {
-        const singledata=await model.findById(req.params.id)
-        res.json(singledata)
+        const singledata=await Post.findById(req.params.id)
+        res.send(singledata)
     } catch (err) {
         console.log(err)
     }
 })
 
-router.delete('/delete/:id',async (req,res)=>{
+router.delete('/post/:id',async (req,res)=>{
     try {
-        const deletedata=await model.remove({ __id:req.params.id})
+        const deletedata=await Post.remove({ __id:req.params.id})
         res.send('delete suucessfully')
     } catch (err) {
         console.log(err)
