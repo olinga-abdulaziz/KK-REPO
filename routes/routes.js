@@ -79,6 +79,17 @@ router.get('/post/:id',async (req,res)=>{
     }
 })
 
+
+router.get('/post/category/:category',async (req,res)=>{
+
+    try {
+        const singledata=await Post.find({category:req.params.category})
+        res.send(singledata)
+    } catch (err) {
+        console.log(err)
+    }
+})
+
 router.delete('/post/:id',async (req,res)=>{
     try {
         const deletedata=await Post.remove({ __id:req.params.id})
@@ -87,6 +98,8 @@ router.delete('/post/:id',async (req,res)=>{
         console.log(err)
     }
 })
+
+
 
 
 
